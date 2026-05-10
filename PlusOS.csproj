@@ -6,11 +6,12 @@
     <Nullable>enable</Nullable>
     <Platform>x86</Platform>
     <OutputType>Exe</OutputType>
+    <IncludePreRelease>true</IncludePreRelease>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cosmos.System2" Version="0.1.0-*" />
-    <PackageReference Include="Cosmos.Debug.Kernel" Version="0.1.0-*" />
+    <PackageReference Include="Cosmos.System2" Version="2024.11.20" />
+    <PackageReference Include="Cosmos.Debug.Kernel" Version="2024.11.20" />
   </ItemGroup>
 
   <ItemGroup>
