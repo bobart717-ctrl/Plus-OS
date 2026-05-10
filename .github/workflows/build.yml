@@ -18,7 +18,8 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore
-      run: dotnet restore PlusOS.csproj
+      # Force NuGet to use our config
+      run: dotnet restore PlusOS.csproj --configfile nuget.config
 
     - name: Build
       run: dotnet build PlusOS.csproj --configuration Release --no-restore
