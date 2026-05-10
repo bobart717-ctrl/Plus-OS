@@ -1,35 +1,13 @@
-using System.Drawing;
-using Cosmos.System.Graphics;
-using Cosmos.System.Graphics.Fonts;
-
 namespace PlusOS {
     public static class Notepad {
-        public static bool IsOpen = false;
-        public static string Text = ""; // Начинаем с пустой строки
-        
-        // Метод отрисовки окна
-        public static void Render(Canvas canvas) {
-            if (IsOpen) {
-                // Основное окно (белое)
-                canvas.DrawFilledRectangle(Color.White, 150, 100, 500, 350);
-                
-                // Заголовок окна (серая полоска)
-                canvas.DrawFilledRectangle(Color.FromArgb(200, 200, 200), 150, 100, 500, 25);
-                
-                // Кнопка закрытия (красная)
-                canvas.DrawFilledRectangle(Color.Red, 630, 105, 15, 15);
+        public static bool IsOpen = true; // Сделаем открытым для теста
+        public static string Content = "Plus OS Notepad v1.0";
 
-                // Отрисовка текста внутри блокнота
-                // Используем стандартный шрифт Cosmos
-                canvas.DrawString(Text, PCScreenFont.Default, Color.Black, 160, 130);
-            }
-        }
-
-        // Проверка нажатия на кнопку закрытия
-        public static void CheckClick(int x, int y) {
-            if (x > 630 && x < 645 && y > 105 && y < 120) {
-                IsOpen = false;
-            }
+        public static void Draw() {
+            // Рисуем рамку блокнота
+            Kernel.WriteAt("┌──────────────────────────┐", 5, 20, 0x0F);
+            Kernel.WriteAt("│ " + Content.PadRight(24) + " │", 6, 20, 0x0F);
+            Kernel.WriteAt("└──────────────────────────┘", 7, 20, 0x0F);
         }
     }
 }
