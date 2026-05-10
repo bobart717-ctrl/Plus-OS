@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest # Пробуем Linux для стабильности сети
 
     steps:
     - name: Checkout code
@@ -18,8 +18,8 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      # Добавляем флаг --configfile, чтобы он точно прочитал наш nuget.config
-      run: dotnet restore PlusOS.csproj --configfile nuget.config
+      # Пробуем форсированный поиск
+      run: dotnet restore PlusOS.csproj --configfile nuget.config --verbosity normal
 
     - name: Build Project
       run: dotnet build PlusOS.csproj --configuration Release --no-restore
