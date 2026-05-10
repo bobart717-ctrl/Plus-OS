@@ -1,20 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Platform>x86</Platform>
-    <OutputType>Exe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PublishAot>true</PublishAot>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Cosmos.System2" Version="0.1.0-alpha*" />
-    <PackageReference Include="Cosmos.Debug.Kernel" Version="0.1.0-alpha*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="LowLevel.asm" />
-  </ItemGroup>
-
 </Project>
