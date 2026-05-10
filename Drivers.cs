@@ -1,24 +1,23 @@
-using Sys = Cosmos.System;
+using System.Runtime.InteropServices;
 
 namespace PlusOS {
     public static class Drivers {
-        public static void HandleKeyboard() {
-            if (Sys.KeyboardManager.TryReadKey(out var key)) {
-                if (Notepad.IsOpen) {
-                    // Обработка Backspace (стирание)
-                    if (key.Key == Sys.ConsoleKeyEx.Backspace) {
-                        if (Notepad.Text.Length > 0) {
-                            Notepad.Text = Notepad.Text.Remove(Notepad.Text.Length - 1);
-                        }
-                    }
-                    // Обработка Enter (новая строка)
-                    else if (key.Key == Sys.ConsoleKeyEx.Enter) {
-                        Notepad.Text += "\n";
-                    }
-                    // Печать обычных символов
-                    else {
-                        Notepad.Text += key.KeyChar;
-                    }
+        // Импортируем наши функции из Ассемблера
+        [DllImport("*")] public static extern void outb(ushort port, byte data);
+        [DllImport("*")] public static extern byte inb(ushort port);
+
+        public static void CheckKeyboard() {
+            // Проверяем, нажата ли клавиша (статус-порт 0x64)
+            if ((inb(0x64) & 0x01) != 0) {
+                byte scanCode = inb(0x60); // Читаем скан-код клавиши
+                
+                // Пример: если нажат пробел (скан-код 0x39)
+                if (scanCode == 0x39) {
+                    Notepad.TypeChar(' ');
+                }
+                // Если нажат 'N' (скан-код 0x31) - открываем блокнот
+                if (scanCode == 0x31) {
+                    Notepad.IsOpen = true;
                 }
             }
         }
