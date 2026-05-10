@@ -3,8 +3,6 @@ name: Build Plus OS
 on:
   push:
     branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
 
 jobs:
   build:
@@ -17,11 +15,11 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x # Обновили до 8-ки
+        dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      # Теперь он увидит nuget.config и найдет Cosmos
-      run: dotnet restore PlusOS.csproj
+      # Добавляем флаг --configfile, чтобы он точно прочитал наш nuget.config
+      run: dotnet restore PlusOS.csproj --configfile nuget.config
 
     - name: Build Project
-      run: dotnet build PlusOS.csproj --configuration Release
+      run: dotnet build PlusOS.csproj --configuration Release --no-restore
