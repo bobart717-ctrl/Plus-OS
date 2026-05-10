@@ -6,4 +6,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PublishAot>true</PublishAot>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="LowLevel.asm" />
+  </ItemGroup>
 </Project>
