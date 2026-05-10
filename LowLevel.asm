@@ -1,6 +1,9 @@
 [bits 32]
+global _start
+extern Main
 
-global cpu_reboot
-cpu_reboot:
-    jmp 0xFFFF0000 ; Прыжок на адрес перезагрузки BIOS
-    ret
+section .text
+_start:
+    call Main
+    cli
+    hlt
