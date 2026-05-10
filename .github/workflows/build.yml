@@ -1,11 +1,30 @@
 name: Build Plus OS
-on: [push]
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-      - run: dotnet build PlusOS.csproj --configuration Release
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Build Binary (Native AOT)
+      # Используем publish для создания чистого бинарника без зависимостей
+      run: dotnet publish PlusOS.csproj -c Release -r linux-x64 --self-contained true /p:PublishAot=true /p:OptimizationPreference=Size
+
+    - name: Upload Binary Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: PlusOS-Binary
+        # Путь к скомпилированному файлу после AOT публикации
+        path: bin/Release/net8.0/linux-x64/publish/PlusOS
