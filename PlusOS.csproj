@@ -5,9 +5,7 @@
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PublishAot>true</PublishAot>
+    <OutputType>Exe</OutputType>
+    <StripSymbols>true</StripSymbols>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <None Include="LowLevel.asm" />
-  </ItemGroup>
 </Project>
