@@ -19,12 +19,18 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Build Binary (Native AOT)
-      # Добавляем флаг -o для точного указания папки выхода
-      run: dotnet publish PlusOS.csproj -c Release -r linux-x64 --self-contained true /p:PublishAot=true -o ./publish_output
+      # Мы явно создаем папку и просим положить туда результат
+      run: |
+        mkdir -p ./output
+        dotnet publish PlusOS.csproj -c Release -r linux-x64 --self-contained true /p:PublishAot=true -o ./output
+
+    - name: List files (для отладки)
+      # Эта команда покажет в логах, как именно называется твой файл
+      run: ls -R ./output
 
     - name: Upload Binary Artifact
       uses: actions/upload-artifact@v4
       with:
         name: PlusOS-Binary
-        # Теперь мы точно знаем, где лежит файл, потому что сами указали папку ./publish_output
-        path: ./publish_output/PlusOS
+        # Берем ВСЁ содержимое папки output
+        path: ./output/*
