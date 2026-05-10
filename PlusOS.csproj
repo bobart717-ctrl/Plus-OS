@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Platform>x86</Platform>
@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cosmos.Build" Version="0.1.0-*" />
     <PackageReference Include="Cosmos.System2" Version="0.1.0-*" />
     <PackageReference Include="Cosmos.Debug.Kernel" Version="0.1.0-*" />
   </ItemGroup>
